@@ -1,0 +1,44 @@
+public static void getFrequency(int minlen) {
+		Scanner sc = null;
+		BST<String, Integer> frequencyTest = new BST<String, Integer>();
+		
+		try { 
+			sc = new Scanner(file);
+
+			long time = System.currentTimeMillis();
+			while(sc.hasNext()) {
+				String word = sc.next();
+				if(word.length() < minlen) continue;
+				
+				if(!frequencyTest.contain(word)) {
+					frequencyTest.put(word, 1);
+				}
+				else {
+					frequencyTest.put(word, frequencyTest.get(word) + 1);
+				}
+			}		
+			String maxKey = ""; int maxValue = 0;
+			for(String word: frequencyTest.keys()) {
+				if(frequencyTest.get(word) > maxValue) {
+					maxValue = frequencyTest.get(word);
+					maxKey = word;
+				}
+			}
+			
+			time = System.currentTimeMillis() - time;
+			System.out.println(maxKey + " " + maxValue);
+			System.out.println("소요 시간  = " + time + "ms");
+			
+			
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		sc.close();
+		
+		/*
+		for(String word: frequencyTest.keys()) {
+			System.out.println(word);
+		}
+		*/
+	}
